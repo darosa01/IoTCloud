@@ -1,0 +1,47 @@
+
+body{
+  font-family: "Open Sans", sans-serif;
+  padding: 0 1rem;
+}
+
+.menu{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.menu-element{
+  margin: 0 2rem;
+  padding: 0.5rem 1rem;
+  background-color: grey;
+  color: white;
+  border-radius: 5px;
+  transition: linear 0.5s;
+}
+.menu-element:hover{
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+.menu-element a{
+  text-decoration: none;
+  color: white;
+}
+.menu-element:hover a{
+  color: black;
+}
+
+.navbar{
+  display: flex;
+  justify-content: center;
+}
+.navbar > div{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-bottom: 2px solid black;
+  padding: 0.5em;
+  margin: 1em;
+}
+.navbar a{
+  text-decoration: none;
+  color: black;
+}
