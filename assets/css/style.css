@@ -45,3 +45,8 @@ body{
   text-decoration: none;
   color: black;
 }
+
+.search{
+  text-align: center;
+  padding-bottom: 2em;
+}
