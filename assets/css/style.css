@@ -6,12 +6,37 @@ body{
 
 header{
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 1fr 5fr;
   align-items: center;
+  gap: 2rem;
 }
 
 md-block:not([rendered]){
   display: none;
+}
+
+.chart{
+  padding: 1rem;
+}
+
+.date{
+  display: none;
+  grid-template-columns: 1fr 1fr 1fr;
+  text-align: center;
+  background-color: gray;
+  color: white;
+  padding: 1rem;
+}
+.date > div{
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.date-button{
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 .how-to-section{
@@ -20,6 +45,7 @@ md-block:not([rendered]){
 
 .logo{
   padding-top: 1rem;
+  text-align: right;
 }
 
 .menu{
@@ -64,7 +90,21 @@ md-block:not([rendered]){
   color: black;
 }
 
+.no-data{
+  display: none;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  background-color: gray;
+  color: white;
+  padding: 1rem;
+}
+
 .search{
   text-align: center;
   padding-bottom: 2em;
+}
+
+#current-date{
+  font-size: 1.5rem;
 }

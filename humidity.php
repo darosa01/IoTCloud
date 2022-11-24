@@ -1,7 +1,19 @@
+<?php
+
+  require_once "connection.php";
+  require_once "api-functions.php";
+
+  $selectedDate = "";
+
+  if(isset($_POST['date'])){
+    $selectedDate = $_POST['date'];
+  }
+
+?>
 <!DOCTYPE html>
 <html lang="ca"> 
   <head>
-      <title>IoT Project</title>
+      <title>Humidity - Weather Master</title>
       
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,6 +23,7 @@
       <link rel="icon" href="assets/icons/icon-dark.ico" media="(prefers-color-scheme: dark)">
       <link id="theme-style" rel="stylesheet" href="/assets/css/style.css">
 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </head>
   <body>
     <header>
@@ -36,26 +49,73 @@
     </header>
     <h1>Humidity</h1>
     <div class="search">
-      <form method="post">
+      <form action="javascript:void()" onsubmit="dateFromForm()">
         <span>Introduce date: </span>
-        <input type="date" id="date-input" name="date">
+        <input type="date" id="date-input">
         <button>Search</button>
       </form>
     </div>
-    <div>
+    <div class="date" id="date">
+      <div onclick="changeDay('-')" class="date-button">&lt;</div>
+      <div id="current-date"></div>
+      <div onclick="changeDay('+')" class="date-button">&gt;</div>
+    </div>
+    <div class="chart">
       <canvas id="canvas"></canvas>
     </div>
-    <!-- <div><?php echo getHumidity($conn, 10) ?></div> -->
+    <div class="no-data" id="no-data">
+      There is no data for the selected date
+    </div>
     <script>
-      var selectedDate = '<?php echo $selectedDate; ?>';
 
-      if(selectedDate){
+      async function changeDay(op, specificDate = undefined){
+        var date = document.getElementById('current-date').innerHTML;
+        var uglyDate = toUglyDate(date);
+        if(specificDate !== undefined){
+          uglyDate = specificDate;
+        }
+        var newDate = new Date(uglyDate);
 
-        var splitDate = selectedDate.split('-');
+        if(specificDate === undefined){
+          if(op == "+"){
+            newDate.setDate(newDate.getDate() + 1);
+          } else {
+            newDate.setDate(newDate.getDate() - 1);
+          }
+        }
+
+        var selectedDate = newDate.getDate() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getFullYear();
+        document.getElementById('current-date').innerHTML = selectedDate;
+        getDataFromDate(values, toUglyDate(selectedDate)).then(chartData => {
+          if(chartData.length == 0){
+            document.getElementById('no-data').style.display = 'block';
+            document.getElementById('canvas').style.display = 'none';
+          } else {
+            document.getElementById('no-data').style.display = 'none';
+            document.getElementById('canvas').style.display = 'block';
+            loadChart(chartData);
+          }
+        });
+      }
+
+      function dateFromForm(){
+        var newDate = document.getElementById('date-input').value;
+        changeDay(':)', newDate);
+      }
+
+      function toNiceDate(inputDate){
+        var splitDate = inputDate.split('-');
         var niceDate = splitDate[2] + '-' + splitDate[1] + '-' + splitDate[0];
+        return niceDate;
+      }
 
-        var data = '<?php echo getHumidity($conn); ?>';
-        var values = JSON.parse(data);
+      function toUglyDate(inputDate){
+        var splitDate = inputDate.split('-');
+        var uglyDate = splitDate[2] + '-' + splitDate[1] + '-' + splitDate[0];
+        return uglyDate;
+      }
+
+      async function getDataFromDate(values, selectedDate){
 
         var chartData = [];
 
@@ -69,6 +129,10 @@
           }
         });
 
+        return chartData;
+      }
+
+      function loadChart(chartData){
         const config = {
           type: 'line',
           data: {
@@ -82,10 +146,6 @@
               legend: {
                 display: false,
                 position: 'top',
-              },
-              title: {
-                display: true,
-                text: niceDate
               }
             },
             scales: {
@@ -110,8 +170,38 @@
           },
         }
 
+        if(window.chart !== undefined){
+          window.chart.destroy();
+        }
+
         var ctx = document.getElementById("canvas").getContext("2d");
         window.chart = new Chart(ctx, config);
+      }
+
+      var values = undefined;
+
+      var currentDate = new Date();
+      var selectedDate = currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1) + '-' + currentDate.getDate();
+
+      if(selectedDate){
+        document.getElementById('date-input').value = selectedDate;
+        document.getElementById('current-date').innerHTML = toNiceDate(selectedDate);
+        document.getElementById('date').style.display = 'grid';
+        fetch('../api.php?data=humidity')
+        .then(data => data.json())
+        .then(jsonData => {
+          values = jsonData;
+          getDataFromDate(values, selectedDate).then(chartData => {
+          if(chartData.length == 0){
+            document.getElementById('no-data').style.display = 'block';
+            document.getElementById('canvas').style.display = 'none';
+          } else {
+            document.getElementById('no-data').style.display = 'none';
+            document.getElementById('canvas').style.display = 'block';
+            loadChart(chartData);
+          }
+        });
+        });
       }      
     </script>
   </body>

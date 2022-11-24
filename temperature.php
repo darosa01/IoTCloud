@@ -13,7 +13,7 @@
 <!DOCTYPE html>
 <html lang="ca"> 
   <head>
-      <title>IoT Project</title>
+      <title>Temperature - Weather Master</title>
       
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -55,8 +55,11 @@
         <button>Search</button>
       </form>
     </div>
-    <div>
+    <div class="chart">
       <canvas id="canvas"></canvas>
+    </div>
+    <div class="no-data" id="no-data">
+      There is no data for the selected date
     </div>
     <!-- <div><?php echo getTemperature($conn, 10) ?></div> -->
     <script>
@@ -123,8 +126,15 @@
           },
         }
 
-        var ctx = document.getElementById("canvas").getContext("2d");
-        window.chart = new Chart(ctx, config);
+        if(chartData.length == 0){
+          document.getElementById('no-data').style.display = 'block';
+          document.getElementById('canvas').style.display = 'none';
+        } else {
+          document.getElementById('no-data').style.display = 'none';
+          document.getElementById('canvas').style.display = 'block';
+          var ctx = document.getElementById("canvas").getContext("2d");
+          window.chart = new Chart(ctx, config);
+        }
       }      
     </script>
   </body>
