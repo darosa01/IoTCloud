@@ -3,12 +3,6 @@
   require_once "connection.php";
   require_once "api-functions.php";
 
-  $selectedDate = "";
-
-  if(isset($_POST['date'])){
-    $selectedDate = $_POST['date'];
-  }
-
 ?>
 <!DOCTYPE html>
 <html lang="ca"> 
@@ -68,7 +62,7 @@
     </div>
     <script>
 
-      async function changeDay(op, specificDate = undefined){
+      function changeDay(op, specificDate = undefined){
         var date = document.getElementById('current-date').innerHTML;
         var uglyDate = toUglyDate(date);
         if(specificDate !== undefined){
@@ -86,21 +80,22 @@
 
         var selectedDate = newDate.getDate() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getFullYear();
         document.getElementById('current-date').innerHTML = selectedDate;
-        getDataFromDate(values, toUglyDate(selectedDate)).then(chartData => {
-          if(chartData.length == 0){
-            document.getElementById('no-data').style.display = 'block';
-            document.getElementById('canvas').style.display = 'none';
-          } else {
-            document.getElementById('no-data').style.display = 'none';
-            document.getElementById('canvas').style.display = 'block';
-            loadChart(chartData);
-          }
-        });
+        var chartData = getDataFromDate(values, toUglyDate(selectedDate))
+        if(chartData.length == 0){
+          document.getElementById('no-data').style.display = 'block';
+          document.getElementById('canvas').style.display = 'none';
+        } else {
+          document.getElementById('no-data').style.display = 'none';
+          document.getElementById('canvas').style.display = 'block';
+          loadChart(chartData);
+        }
       }
 
       function dateFromForm(){
         var newDate = document.getElementById('date-input').value;
-        changeDay(':)', newDate);
+        if(newDate){
+          changeDay(':)', newDate);
+        }
       }
 
       function toNiceDate(inputDate){
@@ -115,7 +110,7 @@
         return uglyDate;
       }
 
-      async function getDataFromDate(values, selectedDate){
+      function getDataFromDate(values, selectedDate){
 
         var chartData = [];
 
@@ -178,31 +173,24 @@
         window.chart = new Chart(ctx, config);
       }
 
-      var values = undefined;
+      var rawData = '<?php echo getHumidity($conn); ?>';
+      var values = JSON.parse(rawData);
 
       var currentDate = new Date();
       var selectedDate = currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1) + '-' + currentDate.getDate();
 
-      if(selectedDate){
-        document.getElementById('date-input').value = selectedDate;
-        document.getElementById('current-date').innerHTML = toNiceDate(selectedDate);
-        document.getElementById('date').style.display = 'grid';
-        fetch('../api.php?data=humidity')
-        .then(data => data.json())
-        .then(jsonData => {
-          values = jsonData;
-          getDataFromDate(values, selectedDate).then(chartData => {
-          if(chartData.length == 0){
-            document.getElementById('no-data').style.display = 'block';
-            document.getElementById('canvas').style.display = 'none';
-          } else {
-            document.getElementById('no-data').style.display = 'none';
-            document.getElementById('canvas').style.display = 'block';
-            loadChart(chartData);
-          }
-        });
-        });
-      }      
+      document.getElementById('date-input').value = selectedDate;
+      document.getElementById('current-date').innerHTML = toNiceDate(selectedDate);
+
+      var chartData = getDataFromDate(values, selectedDate);
+      if(chartData.length == 0){
+        document.getElementById('no-data').style.display = 'block';
+        document.getElementById('canvas').style.display = 'none';
+      } else {
+        document.getElementById('no-data').style.display = 'none';
+        document.getElementById('canvas').style.display = 'block';
+        loadChart(chartData);
+      }  
     </script>
   </body>
 </html>

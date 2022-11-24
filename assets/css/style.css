@@ -20,7 +20,7 @@ md-block:not([rendered]){
 }
 
 .date{
-  display: none;
+  display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   text-align: center;
   background-color: gray;
