@@ -43,7 +43,7 @@
     </header>
     <h1>Humidity</h1>
     <div class="search">
-      <form action="javascript:void()" onsubmit="dateFromForm()">
+      <form action="javascript:void(0)" onsubmit="dateFromForm()">
         <span>Introduce date: </span>
         <input type="date" id="date-input">
         <button>Search</button>
@@ -194,3 +194,6 @@
     </script>
   </body>
 </html>
+<?php
+  $conn->close();
+?>
