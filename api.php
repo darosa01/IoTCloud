@@ -12,13 +12,13 @@ if(isset($_GET['maxvalues'])){
 if(isset($_GET['data'])){
   switch($_GET['data']){
     case 'temperature':
-      getTemperature($conn, $maxValues);
+      echo getTemperature($conn, $maxValues);
       break;
     case 'humidity':
-      getHumidity($conn, $maxValues);
+      echo getHumidity($conn, $maxValues);
       break;
     case 'air':
-      getAir($conn, $maxValues);
+      echo getAir($conn, $maxValues);
       break;
     default:
       echo "Indicate the desired data using URL params (ex. url.com/api.php?data=temperature&maxvalues=20)";

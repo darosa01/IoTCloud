@@ -4,6 +4,24 @@ body{
   padding: 0 1rem;
 }
 
+header{
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  align-items: center;
+}
+
+md-block:not([rendered]){
+  display: none;
+}
+
+.how-to-section{
+  padding: 0 2rem;
+}
+
+.logo{
+  padding-top: 1rem;
+}
+
 .menu{
   display: flex;
   flex-direction: row;
@@ -33,7 +51,7 @@ body{
 
 .navbar{
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
 }
 .navbar > div{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
