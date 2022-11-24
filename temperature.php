@@ -54,7 +54,7 @@
       <div id="current-date"></div>
       <div onclick="changeDay('+')" class="date-button">&gt;</div>
     </div>
-    <div class="chart">
+    <div class="chart" id="canvas-box">
       <canvas id="canvas"></canvas>
     </div>
     <div class="no-data" id="no-data">
@@ -83,10 +83,10 @@
         var chartData = getDataFromDate(values, toUglyDate(selectedDate));
         if(chartData.length == 0){
           document.getElementById('no-data').style.display = 'block';
-          document.getElementById('canvas').style.display = 'none';
+          document.getElementById('canvas-box').style.display = 'none';
         } else {
           document.getElementById('no-data').style.display = 'none';
-          document.getElementById('canvas').style.display = 'block';
+          document.getElementById('canvas-box').style.display = 'block';
           loadChart(chartData);
         }
       }
@@ -137,6 +137,7 @@
           },
           options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
               legend: {
                 display: false,
@@ -166,11 +167,11 @@
         }
 
         if(window.chart !== undefined){
-          window.chart.destroy();
+          window.chart.update(config);
+        } else {
+          var ctx = document.getElementById("canvas").getContext("2d");
+          window.chart = new Chart(ctx, config);
         }
-
-        var ctx = document.getElementById("canvas").getContext("2d");
-        window.chart = new Chart(ctx, config);
       }
 
       var rawData = '<?php echo getTemperature($conn); ?>';
@@ -185,10 +186,10 @@
       var chartData = getDataFromDate(values, selectedDate);
       if(chartData.length == 0){
         document.getElementById('no-data').style.display = 'block';
-        document.getElementById('canvas').style.display = 'none';
+        document.getElementById('canvas-box').style.display = 'none';
       } else {
         document.getElementById('no-data').style.display = 'none';
-        document.getElementById('canvas').style.display = 'block';
+        document.getElementById('canvas-box').style.display = 'block';
         loadChart(chartData);
       }  
     </script>
