@@ -132,7 +132,10 @@
           type: 'line',
           data: {
             datasets: [{
-              data: chartData
+              label: '%',
+              data: chartData,
+              borderColor: 'rgba(100, 200, 255, 1)',
+              backgroundColor: 'rgba(100, 200, 255, 0.5)'
             }]
           },
           options: {

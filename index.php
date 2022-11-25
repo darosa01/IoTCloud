@@ -99,5 +99,12 @@
         <br/>
       </md-block>
     </section>
+    <footer>
+      <small>Developed by David Romero and Gonzalo García</small>
+      <br/>
+      <small>IoT Lab - Universitat Autònoma de Barcelona</small>
+      <br/>
+      <small>2022/2023</small>
+    </footer>
   </body>
 </html>

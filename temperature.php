@@ -132,7 +132,10 @@
           type: 'line',
           data: {
             datasets: [{
-              data: chartData
+              label: 'ºC',
+              data: chartData,
+              borderColor: 'rgba(230, 0, 0, 1)',
+              backgroundColor: 'rgba(230, 0, 0, 0.5)'
             }]
           },
           options: {
