@@ -5,7 +5,7 @@
 
 ?>
 <!DOCTYPE html>
-<html lang="ca"> 
+<html lang="en"> 
   <head>
       <title>Humidity - Weather Master</title>
       
@@ -170,11 +170,10 @@
         }
 
         if(window.chart !== undefined){
-          window.chart.update(config);
-        } else {
-          var ctx = document.getElementById("canvas").getContext("2d");
-          window.chart = new Chart(ctx, config);
-        }
+          window.chart.destroy();
+        } 
+        var ctx = document.getElementById("canvas").getContext("2d");
+        window.chart = new Chart(ctx, config);
       }
 
       var rawData = '<?php echo getHumidity($conn); ?>';

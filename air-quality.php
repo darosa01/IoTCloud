@@ -5,7 +5,7 @@
 
 ?>
 <!DOCTYPE html>
-<html lang="ca"> 
+<html lang="en"> 
   <head>
       <title>Air Quality - Weather Master</title>
       
@@ -132,25 +132,25 @@
 
         var chartData = [
         {
-          label: "PM10",
+          label: "PM10 (µg/m3)",
           data: PM10,
           borderColor: 'rgba(100, 0, 0, 1)',
           backgroundColor: 'rgba(100, 0, 0, 0.5)'
         },
         {
-          label: 'O3',
+          label: 'O3 (µg/m3)',
           data: O3,
           borderColor: 'rgba(100, 200, 255, 1)',
           backgroundColor: 'rgba(100, 200, 255, 0.5)'
         },
         {
-          label: 'NO2',
+          label: 'NO2 (µg/m3)',
           data: NO2,
           borderColor: 'rgba(230, 0, 0, 1)',
           backgroundColor: 'rgba(230, 0, 0, 0.5)'
         },
         {
-          label: 'SO2',
+          label: 'SO2 (µg/m3)',
           data: SO2,
           borderColor: 'rgba(130, 0, 130, 1)',
           backgroundColor: 'rgba(130, 0, 130, 0.5)'
@@ -201,11 +201,10 @@
         }
 
         if(window.chart !== undefined){
-          window.chart.update(config);
-        } else {
-          var ctx = document.getElementById("canvas").getContext("2d");
-          window.chart = new Chart(ctx, config);
-        }
+          window.chart.destroy();
+        } 
+        var ctx = document.getElementById("canvas").getContext("2d");
+        window.chart = new Chart(ctx, config);
       }
 
       var rawData = '<?php echo getAir($conn); ?>';
