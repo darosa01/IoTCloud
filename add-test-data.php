@@ -15,6 +15,10 @@
     <input type="date" id="date-input">
     <button id="date-button">Add new data</button>
   </div>
+  <br/>
+  <div>
+    <a href=".">Back to main page</a>
+  </div>
   <script>
 
     function getRndInteger(min, max) {
@@ -69,6 +73,7 @@
         newDate.setMinutes(newDate.getMinutes() + generationRate);
         timestamp = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate() + ' ' + newDate.getHours() + ':' + newDate.getMinutes() + ':' + newDate.getSeconds();
       }
+      alert('New data created successfully!');
     }
 
     var dateButton = document.getElementById('date-button');

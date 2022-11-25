@@ -12,32 +12,33 @@
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
 
       <link rel="icon" href="assets/icons/icon.ico" media="(prefers-color-scheme: light)">
       <link rel="icon" href="assets/icons/icon-dark.ico" media="(prefers-color-scheme: dark)">
-      <link id="theme-style" rel="stylesheet" href="/assets/css/style.css">
+      <link id="theme-style" rel="stylesheet" href="assets/css/style.css">
 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </head>
   <body>
     <header>
       <div class="logo">
-        <a href="..">
+        <a href=".">
           <img src="assets/img/logo.png">
         </a>
       </div>
       <nav class="navbar">
         <div>
-          <a href="..">How to use</a>
+          <a href=".">How to use</a>
         </div>
         <div>
-          <a href="../temperature.php">Temperature</a>
+          <a href="./temperature.php">Temperature</a>
         </div>
         <div>
-          <a href="../humidity.php">Humidity</a>
+          <a href="./humidity.php">Humidity</a>
         </div>
         <div>
-          <a href="../air-quality.php">Air Quality</a>
+          <a href="./air-quality.php">Air Quality</a>
         </div>
       </nav>
     </header>

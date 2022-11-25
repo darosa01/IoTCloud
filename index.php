@@ -12,29 +12,29 @@
       <meta name="keywords" content="">
       <link rel="icon" href="assets/icons/icon.ico" media="(prefers-color-scheme: light)">
       <link rel="icon" href="assets/icons/icon-dark.ico" media="(prefers-color-scheme: dark)">
-      <link id="theme-style" rel="stylesheet" href="/assets/css/style.css">
+      <link id="theme-style" rel="stylesheet" href="assets/css/style.css">
 
       <script type="module" src="https://md-block.verou.me/md-block.js"></script>
   </head>
   <body>
     <header>
       <div class="logo">
-        <a href="">
+        <a href=".">
           <img src="assets/img/logo.png">
         </a>
       </div>
       <nav class="navbar">
         <div>
-          <a href="">How to use</a>
+          <a href=".">How to use</a>
         </div>
         <div>
-          <a href="temperature.php">Temperature</a>
+          <a href="./temperature.php">Temperature</a>
         </div>
         <div>
-          <a href="humidity.php">Humidity</a>
+          <a href="./humidity.php">Humidity</a>
         </div>
         <div>
-          <a href="air-quality.php">Air Quality</a>
+          <a href="./air-quality.php">Air Quality</a>
         </div>
       </nav>
     </header>
@@ -67,6 +67,7 @@
         Content-Type: application/json
 
         {
+          "timestamp": "2022-11-25 15:27:42",
           "temperature": 25,
           "humidity": 85,
           "air": {
@@ -78,6 +79,8 @@
         }
         ```
         The data must be sent in a JSON format and the available parameters are the following:
+        - ***timestamp***: a string containing the date and time in the format (YYYY-MM-DD HH:mm:ss). If not specified, 
+        the timestamp will be automatically added by the database.
         - ***temperature***: a numeric value expressing the temperature in ºC.
         - ***humidity***: a numeric value expressing the humidity in %.
         - ***air***: a JSON containing numeric values expressing the PM10, O3, NO2 and SO2 in µg/m3.
@@ -95,6 +98,10 @@
         - ***data***: you can use this parameter in order to select the type of data you want to get (temperature, humidity or air).
         - ***maxvalues***: allows you to get the n number of last records, if not specified, all records are returned.
         
+        ___
+        ## Developers
+        In order to test if the platform is working well you can generate random data for a specific day
+        using [this](add-test-data.php) page.
         ___
         <br/>
       </md-block>
