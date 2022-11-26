@@ -100,7 +100,7 @@
         
         ___
         ## Developers
-        In order to test if the platform is working well you can generate random data for a specific day
+        In order to test if the platform is working well, you can generate random data for a specific day
         using [this](add-test-data.php) page.
         ___
         <br/>

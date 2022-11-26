@@ -136,7 +136,8 @@
               label: 'ºC',
               data: chartData,
               borderColor: 'rgba(230, 0, 0, 1)',
-              backgroundColor: 'rgba(230, 0, 0, 0.5)'
+              backgroundColor: 'rgba(230, 0, 0, 0.5)',
+              lineTension: 0.2
             }]
           },
           options: {

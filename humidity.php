@@ -136,7 +136,8 @@
               label: '%',
               data: chartData,
               borderColor: 'rgba(100, 200, 255, 1)',
-              backgroundColor: 'rgba(100, 200, 255, 0.5)'
+              backgroundColor: 'rgba(100, 200, 255, 0.5)',
+              lineTension: 0.2
             }]
           },
           options: {

@@ -136,25 +136,29 @@
           label: "PM10 (µg/m3)",
           data: PM10,
           borderColor: 'rgba(100, 0, 0, 1)',
-          backgroundColor: 'rgba(100, 0, 0, 0.5)'
+          backgroundColor: 'rgba(100, 0, 0, 0.5)',
+          lineTension: 0.2
         },
         {
           label: 'O3 (µg/m3)',
           data: O3,
           borderColor: 'rgba(100, 200, 255, 1)',
-          backgroundColor: 'rgba(100, 200, 255, 0.5)'
+          backgroundColor: 'rgba(100, 200, 255, 0.5)',
+          lineTension: 0.2
         },
         {
           label: 'NO2 (µg/m3)',
           data: NO2,
           borderColor: 'rgba(230, 0, 0, 1)',
-          backgroundColor: 'rgba(230, 0, 0, 0.5)'
+          backgroundColor: 'rgba(230, 0, 0, 0.5)',
+          lineTension: 0.2
         },
         {
           label: 'SO2 (µg/m3)',
           data: SO2,
           borderColor: 'rgba(130, 0, 130, 1)',
-          backgroundColor: 'rgba(130, 0, 130, 0.5)'
+          backgroundColor: 'rgba(130, 0, 130, 0.5)',
+          lineTension: 0.2
         }];
 
         if(PM10.length == 0 && O3.length == 0 && NO2.length == 0 && SO2.length == 0){

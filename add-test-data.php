@@ -38,19 +38,47 @@
       var newDate = new Date(rawDate + ' 00:00:24');
       var timestamp = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate() + ' ' + newDate.getHours() + ':' + newDate.getMinutes() + ':' + newDate.getSeconds();
 
+      // Temperature
+      var tempLimit = [0, 40];
+      var randomTemperature = getRndInteger(tempLimit[0], tempLimit[1]);
+
+      // Humidity
+      var humidityLimit = [0, 100];
+      var randomHumidity = getRndInteger(humidityLimit[0], humidityLimit[1]);
+
       for(let i = 0; i < iterations; i++){
 
-        // Temperature
-        var randomTemperature = getRndInteger(10,30);
+        var variacion = Math.random();
 
-        // Humidity
-        var randomHumidity = getRndInteger(10,90);
+        if(getRndInteger(0, 9) % 2 != 0){
+        variacion = variacion * -1;
+        }
+
+        randomTemperature += variacion;
+        randomHumidity += (variacion * 2);
+
+        if(randomTemperature < tempLimit[0]){
+          randomTemperature = tempLimit[0];
+        }
+        if(randomTemperature > tempLimit[1]){
+          randomTemperature = tempLimit[1];
+        }
+
+        if(randomHumidity < humidityLimit[0]){
+          randomHumidity = humidityLimit[0];
+        }
+        if(randomHumidity > humidityLimit[1]){
+          randomHumidity = humidityLimit[1];
+        }
+
+        randomTemperature = Math.round(randomTemperature * 100) / 100;
+        randomHumidity = Math.round(randomHumidity * 100) / 100;
 
         // Air Quality
-        var randomPM10 = getRndInteger(10,40);
-        var randomO3 = getRndInteger(160,180);
-        var randomNO2 = getRndInteger(10,40);
-        var randomSO2 = getRndInteger(1,10);
+        var randomPM10 = getRndInteger(10,15);
+        var randomO3 = getRndInteger(160,165);
+        var randomNO2 = getRndInteger(10,15);
+        var randomSO2 = getRndInteger(1,6);
 
         fetch('./api.php', {
           method: 'POST',

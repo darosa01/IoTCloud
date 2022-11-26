@@ -5,7 +5,7 @@ function pushTemperature($conn, $data, $timestamp = null){
     if(!$ssql = $conn->prepare("INSERT INTO `temperature` (`value`,`datetime`) VALUES (?,?);")){
       return("Error al preparar la consulta");
     }
-    if(!$ssql->bind_param("is", $data, $timestamp)){
+    if(!$ssql->bind_param("ds", $data, $timestamp)){
       return("Error al vincular los parametros");
     }
   } else {
@@ -13,7 +13,7 @@ function pushTemperature($conn, $data, $timestamp = null){
     if(!$ssql = $conn->prepare("INSERT INTO `temperature` (`value`) VALUES (?);")){
       return("Error al preparar la consulta");
     }
-    if(!$ssql->bind_param("i", $data)){
+    if(!$ssql->bind_param("d", $data)){
       return("Error al vincular los parametros");
     }
   }
@@ -30,7 +30,7 @@ function pushHumidity($conn, $data, $timestamp = null){
     if(!$ssql = $conn->prepare("INSERT INTO `humidity` (`value`,`datetime`) VALUES (?,?);")){
       return("Error al preparar la consulta");
     }
-    if(!$ssql->bind_param("is", $data, $timestamp)){
+    if(!$ssql->bind_param("ds", $data, $timestamp)){
       return("Error al vincular los parametros");
     }
   } else {
@@ -38,7 +38,7 @@ function pushHumidity($conn, $data, $timestamp = null){
     if(!$ssql = $conn->prepare("INSERT INTO `humidity` (`value`) VALUES (?);")){
       return("Error al preparar la consulta");
     }
-    if(!$ssql->bind_param("i", $data)){
+    if(!$ssql->bind_param("d", $data)){
       return("Error al vincular los parametros");
     }
   }
