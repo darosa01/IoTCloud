@@ -1,5 +1,6 @@
 <?php
 
+header("Cache-Control: no-cache, must-revalidate");
 require_once "connection.php";
 require_once "api-functions.php";
 
@@ -12,7 +13,6 @@ require_once "api-functions.php";
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
 
     <link rel="icon" href="assets/icons/icon.ico" media="(prefers-color-scheme: light)">
     <link rel="icon" href="assets/icons/icon-dark.ico" media="(prefers-color-scheme: dark)">

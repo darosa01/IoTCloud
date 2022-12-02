@@ -1,3 +1,4 @@
+<?php header("Cache-Control: no-cache, must-revalidate"); ?>
 <!DOCTYPE html>
 <html lang="ca"> 
   <head>
@@ -82,6 +83,8 @@
         ## Developers
         In order to test if the platform is working well, you can generate random data for a specific day
         using [this](add-test-data.php) page.
+        <br/>
+        If you want to delete all the previously generated data, click [here](remove-all-data.php).
         ___
         <br/>
       </md-block>
