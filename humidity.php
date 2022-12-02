@@ -21,27 +21,7 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </head>
   <body>
-    <header>
-      <div class="logo">
-        <a href=".">
-          <img src="assets/img/logo.png">
-        </a>
-      </div>
-      <nav class="navbar">
-        <div>
-          <a href=".">How to use</a>
-        </div>
-        <div>
-          <a href="./temperature.php">Temperature</a>
-        </div>
-        <div>
-          <a href="./humidity.php">Humidity</a>
-        </div>
-        <div>
-          <a href="./air-quality.php">Air Quality</a>
-        </div>
-      </nav>
-    </header>
+    <?php include "header.php"; ?>
     <h1>Humidity</h1>
     <div class="search">
       <form action="javascript:void(0)" onsubmit="dateFromForm()">
@@ -61,6 +41,13 @@
     <div class="no-data" id="no-data">
       There is no data for the selected date
     </div>
+    <div class="raw-data-box" id="raw-data-box">
+      <hr>
+      <details>
+        <summary>Raw data</summary>
+        <code id="raw-data"></code>
+      </details>
+    </div>
     <script>
 
       function changeDay(op, specificDate = undefined){
@@ -79,15 +66,18 @@
           }
         }
 
-        var selectedDate = newDate.getDate() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getFullYear();
+        var selectedDate = String(newDate.getDate()).padStart(2, '0') + '-' + String(newDate.getMonth() + 1).padStart(2, '0') + '-' + newDate.getFullYear();
         document.getElementById('current-date').innerHTML = selectedDate;
         var chartData = getDataFromDate(values, toUglyDate(selectedDate))
         if(chartData.length == 0){
           document.getElementById('no-data').style.display = 'block';
           document.getElementById('canvas-box').style.display = 'none';
+          document.getElementById('raw-data-box').style.display = 'none';
         } else {
           document.getElementById('no-data').style.display = 'none';
           document.getElementById('canvas-box').style.display = 'block';
+          document.getElementById('raw-data').innerText = JSON.stringify(chartData);
+          document.getElementById('raw-data-box').style.display = 'block';
           loadChart(chartData);
         }
       }
@@ -111,6 +101,18 @@
         return uglyDate;
       }
 
+      function sortDataByDate(a, b){
+        let first = new Date("December 17, 1995 " + a.x);
+        let second = new Date("December 17, 1995 " + b.x);
+        if(first < second){
+          return -1;
+        }
+        if(first > second){
+          return 1;
+        }
+        return 0;
+      }
+
       function getDataFromDate(values, selectedDate){
 
         var chartData = [];
@@ -124,6 +126,8 @@
             chartData.push({x: time, y: elem['value']});
           }
         });
+
+        chartData.sort(sortDataByDate);
 
         return chartData;
       }
@@ -182,7 +186,7 @@
       var values = JSON.parse(rawData);
 
       var currentDate = new Date();
-      var selectedDate = currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1) + '-' + currentDate.getDate();
+      var selectedDate = currentDate.getFullYear() + '-' + String(currentDate.getMonth() + 1).padStart(2, '0') + '-' + String(currentDate.getDate()).padStart(2, '0');
 
       document.getElementById('date-input').value = selectedDate;
       document.getElementById('current-date').innerHTML = toNiceDate(selectedDate);
@@ -191,9 +195,12 @@
       if(chartData.length == 0){
         document.getElementById('no-data').style.display = 'block';
         document.getElementById('canvas-box').style.display = 'none';
+        document.getElementById('raw-data-box').style.display = 'none';
       } else {
         document.getElementById('no-data').style.display = 'none';
         document.getElementById('canvas-box').style.display = 'block';
+        document.getElementById('raw-data').innerText = JSON.stringify(chartData);
+        document.getElementById('raw-data-box').style.display = 'block';
         loadChart(chartData);
       }  
     </script>

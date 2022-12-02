@@ -17,27 +17,7 @@
       <script type="module" src="https://md-block.verou.me/md-block.js"></script>
   </head>
   <body>
-    <header>
-      <div class="logo">
-        <a href=".">
-          <img src="assets/img/logo.png">
-        </a>
-      </div>
-      <nav class="navbar">
-        <div>
-          <a href=".">How to use</a>
-        </div>
-        <div>
-          <a href="./temperature.php">Temperature</a>
-        </div>
-        <div>
-          <a href="./humidity.php">Humidity</a>
-        </div>
-        <div>
-          <a href="./air-quality.php">Air Quality</a>
-        </div>
-      </nav>
-    </header>
+    <?php include "header.php"; ?>
     <section class="how-to-section">
       <md-block>
         # How to use
