@@ -155,11 +155,6 @@
             },
             scales: {
               x: {
-                /*type: 'time',
-                time: {
-                  // Luxon format string
-                  tooltipFormat: 'DD T'
-                },*/
                 title: {
                   display: false,
                   text: 'Date'

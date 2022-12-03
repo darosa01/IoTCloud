@@ -62,11 +62,7 @@ require_once "api-functions.php";
     </div>
 
     <script>
-      /*
-       * IDEA: Crear un gráfico para cada grupo comparando los datos disponibles desde la fecha actual
-       * hasta un año atrás con los del año anterior.      
-       */
-
+      
       let rawTemperatureData = '<?php echo getTemperature($conn); ?>';
       let rawHumidityData = '<?php echo getHumidity($conn); ?>';
       let rawAirData = '<?php echo getAir($conn); ?>';
@@ -335,11 +331,6 @@ require_once "api-functions.php";
           },
           scales: {
             x: {
-              /*type: 'time',
-              time: {
-                // Luxon format string
-                tooltipFormat: 'DD T'
-              },*/
               title: {
                 display: false,
                 text: 'Date'
@@ -389,11 +380,6 @@ require_once "api-functions.php";
           },
           scales: {
             x: {
-              /*type: 'time',
-              time: {
-                // Luxon format string
-                tooltipFormat: 'DD T'
-              },*/
               title: {
                 display: false,
                 text: 'Date'
@@ -443,11 +429,6 @@ require_once "api-functions.php";
           },
           scales: {
             x: {
-              /*type: 'time',
-              time: {
-                // Luxon format string
-                tooltipFormat: 'DD T'
-              },*/
               title: {
                 display: false,
                 text: 'Date'
@@ -497,11 +478,6 @@ require_once "api-functions.php";
           },
           scales: {
             x: {
-              /*type: 'time',
-              time: {
-                // Luxon format string
-                tooltipFormat: 'DD T'
-              },*/
               title: {
                 display: false,
                 text: 'Date'
@@ -551,11 +527,6 @@ require_once "api-functions.php";
           },
           scales: {
             x: {
-              /*type: 'time',
-              time: {
-                // Luxon format string
-                tooltipFormat: 'DD T'
-              },*/
               title: {
                 display: false,
                 text: 'Date'
@@ -605,11 +576,6 @@ require_once "api-functions.php";
           },
           scales: {
             x: {
-              /*type: 'time',
-              time: {
-                // Luxon format string
-                tooltipFormat: 'DD T'
-              },*/
               title: {
                 display: false,
                 text: 'Date'

@@ -33,6 +33,9 @@
 
         ### Air quality
         In order to check the air quality data you just have to access the [Air Quality](air-quality.php) page.
+
+        ### Comparison
+        In this section you can compare the data of each group with that of the previous year. You can check it by accessing the [Comparison](comparison.php) page.
         ___
         ## API
         Our solution provides an API that allows you to get and send data to/from all kinds of machines 
