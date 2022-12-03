@@ -87,7 +87,7 @@
         In order to test if the platform is working well, you can generate random data for a specific day
         using [this](add-test-data.php) page.
         <br/>
-        If you want to delete all the previously generated data, click [here](remove-all-data.php).
+        If you want to delete all the previously generated data, click on the button: <button onclick="deleteData()">Delete data</button>
         ___
         <br/>
       </md-block>
@@ -99,5 +99,13 @@
       <br/>
       <small>2022/2023</small>
     </footer>
+    <script>
+      function deleteData(){
+        let confirmed = confirm("Are you sure you want to delete all stored data?");
+        if(confirmed){
+          fetch("remove-all-data.php");
+        }
+      }
+    </script>
   </body>
 </html>
