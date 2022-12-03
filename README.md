@@ -1,13 +1,11 @@
-# IoT Cloud - Weather Master
+# IoT Cloud - Weather Master :cloud::sun_behind_rain_cloud::snowflake::fire:
 Demo of an IoT cloud that connects with a mobile device in order to get data fom sensors.
 <br/><br/>
 Website and documentation available at: [perseus.cat/weather-master](https://perseus.cat/weather-master)
 ___
 
-<div style="text-align: center;">
-<small>Developed by David Romero and Gonzalo García</small>
+Developed by David Romero and Gonzalo García
 <br/>
-<small>IoT Lab - Universitat Autònoma de Barcelona</small>
+IoT Lab - Universitat Autònoma de Barcelona
 <br/>
-<small>2022/2023</small>
-</div>
+2022/2023
