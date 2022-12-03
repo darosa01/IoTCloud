@@ -199,10 +199,13 @@ require_once "api-functions.php";
         if(elemDate <= date && elemDate > pastYearDate){
           firstGroupTemperatures.push(newElem);
         }
-        else if(elemDate >= pastYearDate && elemDate > limitDate){
+        else if(elemDate <= pastYearDate && elemDate > limitDate){
           secondGroupTemperatures.push(newElem);
         }
       });
+
+      firstGroupTemperatures.sort(sortChartByDate);
+      secondGroupTemperatures.sort(sortChartByDate);
 
 
       // Separacion de humedades por fechas
@@ -222,10 +225,13 @@ require_once "api-functions.php";
         if(elemDate <= date && elemDate > pastYearDate){
           firstGroupHumidity.push(newElem);
         }
-        else if(elemDate >= pastYearDate && elemDate > limitDate){
+        else if(elemDate <= pastYearDate && elemDate > limitDate){
           secondGroupHumidity.push(newElem);
         }
       });
+
+      firstGroupHumidity.sort(sortChartByDate);
+      secondGroupHumidity.sort(sortChartByDate);
 
 
       // Separacion de calidad del aire por fechas
@@ -266,7 +272,7 @@ require_once "api-functions.php";
             y: elem.SO2
           });
         }
-        else if(elemDate >= pastYearDate && elemDate > limitDate){
+        else if(elemDate <= pastYearDate && elemDate > limitDate){
           secondGroupPM10.push({
             x: shortDate,
             y: elem.PM10
@@ -285,6 +291,18 @@ require_once "api-functions.php";
           });
         }
       });
+
+      firstGroupPM10.sort(sortChartByDate);
+      secondGroupPM10.sort(sortChartByDate);
+
+      firstGroupO3.sort(sortChartByDate);
+      secondGroupO3.sort(sortChartByDate);
+
+      firstGroupNO2.sort(sortChartByDate);
+      secondGroupNO2.sort(sortChartByDate);
+
+      firstGroupSO2.sort(sortChartByDate);
+      secondGroupSO2.sort(sortChartByDate);
 
 
       // Creacion del grafico de temperatura
@@ -347,13 +365,13 @@ require_once "api-functions.php";
         type: 'line',
         data: {
           datasets: [{
-            label: 'First period',
+            label: 'Actual period',
             data: firstGroupHumidity,
             borderColor: 'rgba(0, 160, 255, 1)',
             backgroundColor: 'rgba(0, 160, 255, 0.5)',
             lineTension: 0.2
           }, {
-            label: 'Second period',
+            label: 'Past period',
             data: secondGroupHumidity,
             borderColor: 'rgba(100, 200, 255, 1)',
             backgroundColor: 'rgba(100, 200, 255, 0.5)',
@@ -401,13 +419,13 @@ require_once "api-functions.php";
         type: 'line',
         data: {
           datasets: [{
-            label: 'First period',
+            label: 'Actual period',
             data: firstGroupPM10,
             borderColor: 'rgba(0, 160, 255, 1)',
             backgroundColor: 'rgba(0, 160, 255, 0.5)',
             lineTension: 0.2
           }, {
-            label: 'Second period',
+            label: 'Past period',
             data: secondGroupPM10,
             borderColor: 'rgba(100, 200, 255, 1)',
             backgroundColor: 'rgba(100, 200, 255, 0.5)',
@@ -449,10 +467,186 @@ require_once "api-functions.php";
       window.PM10Chart = new Chart(ctx, configPM10);
 
 
+      // Creacion del grafico de O3
+
+      const configO3 = {
+        type: 'line',
+        data: {
+          datasets: [{
+            label: 'Actual period',
+            data: firstGroupO3,
+            borderColor: 'rgba(0, 160, 255, 1)',
+            backgroundColor: 'rgba(0, 160, 255, 0.5)',
+            lineTension: 0.2
+          }, {
+            label: 'Past period',
+            data: secondGroupO3,
+            borderColor: 'rgba(100, 200, 255, 1)',
+            backgroundColor: 'rgba(100, 200, 255, 0.5)',
+            lineTension: 0.2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
+              position: 'top',
+            }
+          },
+          scales: {
+            x: {
+              /*type: 'time',
+              time: {
+                // Luxon format string
+                tooltipFormat: 'DD T'
+              },*/
+              title: {
+                display: false,
+                text: 'Date'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'µg/m3'
+              }
+            }
+          }
+        },
+      }
+
+      var ctx = document.getElementById("canvas-o3").getContext("2d");
+      window.O3Chart = new Chart(ctx, configO3);
+
+
+      // Creacion del grafico de NO2
+
+      const configNO2 = {
+        type: 'line',
+        data: {
+          datasets: [{
+            label: 'Actual period',
+            data: firstGroupNO2,
+            borderColor: 'rgba(0, 160, 255, 1)',
+            backgroundColor: 'rgba(0, 160, 255, 0.5)',
+            lineTension: 0.2
+          }, {
+            label: 'Past period',
+            data: secondGroupNO2,
+            borderColor: 'rgba(100, 200, 255, 1)',
+            backgroundColor: 'rgba(100, 200, 255, 0.5)',
+            lineTension: 0.2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
+              position: 'top',
+            }
+          },
+          scales: {
+            x: {
+              /*type: 'time',
+              time: {
+                // Luxon format string
+                tooltipFormat: 'DD T'
+              },*/
+              title: {
+                display: false,
+                text: 'Date'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'µg/m3'
+              }
+            }
+          }
+        },
+      }
+
+      var ctx = document.getElementById("canvas-no2").getContext("2d");
+      window.NO2Chart = new Chart(ctx, configNO2);
+
+
+      // Creacion del grafico de SO2
+
+      const configSO2 = {
+        type: 'line',
+        data: {
+          datasets: [{
+            label: 'Actual period',
+            data: firstGroupSO2,
+            borderColor: 'rgba(0, 160, 255, 1)',
+            backgroundColor: 'rgba(0, 160, 255, 0.5)',
+            lineTension: 0.2
+          }, {
+            label: 'Past period',
+            data: secondGroupSO2,
+            borderColor: 'rgba(100, 200, 255, 1)',
+            backgroundColor: 'rgba(100, 200, 255, 0.5)',
+            lineTension: 0.2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
+              position: 'top',
+            }
+          },
+          scales: {
+            x: {
+              /*type: 'time',
+              time: {
+                // Luxon format string
+                tooltipFormat: 'DD T'
+              },*/
+              title: {
+                display: false,
+                text: 'Date'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'µg/m3'
+              }
+            }
+          }
+        },
+      }
+
+      var ctx = document.getElementById("canvas-so2").getContext("2d");
+      window.SO2Chart = new Chart(ctx, configSO2);
+
+
       // Funciones auxiliares
 
       function roundDecimals(num){
         return Math.round((num + Number.EPSILON) * 100) / 100;
+      }
+
+      function sortChartByDate(a, b){
+        let splitFirst = a.x.split('-');
+        let splitSecond = b.x.split('-');
+        let first = new Date("2001-" + splitFirst[1] + "-" + splitFirst[0]);
+        let second = new Date("2001-" + splitSecond[1] + "-" + splitSecond[0]);
+        if(first < second){
+          return -1;
+        }
+        if(first > second){
+          return 1;
+        }
+        return 0;
       }
 
     </script>
