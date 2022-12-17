@@ -19,7 +19,7 @@ function pushTemperature($conn, $data, $timestamp = null){
   }
 
   if(!$ssql->execute()){
-    return("Error al añadir la humedad a la base de datos");
+    return("Error al añadir la temperatura a la base de datos");
   }
 
   return 'Temperature data has been stored! ';
@@ -67,7 +67,7 @@ function pushAir($conn, $data, $timestamp = null){
     if(!$ssql = $conn->prepare("INSERT INTO `air` (`datetime`,`PM10`, `O3`, `NO2`, `SO2`) VALUES (?, ?, ?, ?, ?);")){
       return("Error al preparar la consulta");
     }
-    if(!$ssql->bind_param("siiii", $timestamp, $PM10, $O3, $NO2, $SO2)){
+    if(!$ssql->bind_param("sdddd", $timestamp, $PM10, $O3, $NO2, $SO2)){
       return("Error al vincular los parametros");
     }
   } else {
@@ -75,7 +75,7 @@ function pushAir($conn, $data, $timestamp = null){
     if(!$ssql = $conn->prepare("INSERT INTO `air` (`PM10`, `O3`, `NO2`, `SO2`) VALUES (?, ?, ?, ?);")){
       return("Error al preparar la consulta");
     }
-    if(!$ssql->bind_param("iiii", $PM10, $O3, $NO2, $SO2)){
+    if(!$ssql->bind_param("dddd", $PM10, $O3, $NO2, $SO2)){
       return("Error al vincular los parametros");
     }
   }

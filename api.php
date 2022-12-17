@@ -31,29 +31,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     echo "Indicate the desired data using URL params (ex. url.com/api.php?data=temperature&maxvalues=20)";
   }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $body = json_decode(file_get_contents('php://input'), true);
+
+  // Input Log
+  $body = file_get_contents('php://input');
+  $file = "testBLE.txt";
+  file_put_contents($file, $body, FILE_APPEND);
+  // ------------------------------------------
+
+  $body = json_decode($body, true);
   if(!empty($body)){
     if($body['temperature']){
       if($body['timestamp']){
-        echo pushTemperature($conn, $body['temperature'], $body['timestamp']);
+        pushTemperature($conn, $body['temperature'], $body['timestamp']);
       } else {
-        echo pushTemperature($conn, $body['temperature']);
+        pushTemperature($conn, $body['temperature']);
       }
     }
     if($body['humidity']){
       if($body['timestamp']){
-        echo pushHumidity($conn, $body['humidity'], $body['timestamp']);
+        pushHumidity($conn, $body['humidity'], $body['timestamp']);
       } else {
-        echo pushHumidity($conn, $body['humidity']);
+        pushHumidity($conn, $body['humidity']);
       };
     }
     if($body['air']){
       if($body['timestamp']){
-        echo pushAir($conn, $body['air'], $body['timestamp']);
+        pushAir($conn, $body['air'], $body['timestamp']);
       } else {
-        echo pushAir($conn, $body['air']);
+        pushAir($conn, $body['air']);
       }
     }
+    echo "Done";
   } else {
     echo "Data not received";
   }
